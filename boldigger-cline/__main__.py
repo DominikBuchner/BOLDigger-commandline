@@ -7,32 +7,19 @@ certs = pkg_resources.resource_filename(__name__, 'data/certs.pem')
 if __name__ == "__main__":
 
     ## collect and parse the cline arguments
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog = 'BOLDigger commandline', description = 'BOLDigger as a command line tool')
+    subparsers = parser.add_subparsers()
 
-    ## positional arguments, e.g. function to be called by boldigger
-    parser.add_argument('function', choices = ['boldblast_coi',
-                                               'boldblast_its',
-                                               'boldblast_rbcl',
-                                               'additional_data',
-                                               'first_hit',
-                                               'jamp_hit',
-                                               'digger_sort'],
-                                               nargs = '?',
-                                               default = None,
-                                               help = 'The different functions of BOLDigger-cline')
+    parser_bb_coi = subparsers.add_parser('bb_coi', help = 'COI identification engine')
+    parser_bb_its = subparsers.add_parser('bb_its', help = 'ITS identification engine')
+    parser_bb_rbcl = subparsers.add_parser('bb_rbcl', help = 'rbcl identification engine')
+    parser_add_data = subparsers.add_parser('add_metadata', help = 'additional data download')
+    parser_first_hit = subparsers.add_parser('first_hit', help = 'use the first hit as top hit')
+    parser_jamp_hit = subparsers.add_parser('jamp_hit', help = 'determine the top hit with the JAMP method')
+    parser_digger_hit = subparsers.add_parser('digger_hit', help = 'determine the top hit with the BOLDigger method')
 
-    ## keyword arguments e.g. flags used by the positional arguments
-    parser.add_argument('-un', '--username', help = 'Username argument')
-    parser.add_argument('-pw', '--password', help = 'Password argument')
-    parser.add_argument('-fp', '--fasta_path', help = 'Specify the fasta file path here')
-    parser.add_argument('-xp', '--xlsx_path', help = 'Specify the xlsx file path here')
-    parser.add_argument('-out', '--output_folder', help = 'Specify the output folder here')
+    ## add version control
+    parser.add_argument('--version', action='version', version= '1.0.0')
 
-    ## ADD REAL DISTRIBUTION CODE HERE ##
-
-    parser.add_argument('--version', action = 'version', version = '1.0.0', help = 'Display the installed version of BOLDigger-cline')
-
-    ## collect all commandline arguments
+    ## parse the arguments
     args = parser.parse_args()
-
-    ## logic of boldigger-cline
