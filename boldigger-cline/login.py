@@ -24,7 +24,7 @@ def login(username, password, certificate):
     content = soup.find(class_ = 'site-navigation nav navbar-nav')
     tags = content.find_all('a')
     if tags[5].text != 'Log out':
-        print('No login possible')
+        print('No login possible. Please check your userdata.')
     else:
         print('Login successfull')
 

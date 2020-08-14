@@ -17,7 +17,9 @@ if __name__ == "__main__":
                                                'first_hit',
                                                'jamp_hit',
                                                'digger_sort'],
-                                                help = 'The different functions of BOLDigger-cline')
+                                               nargs = '?',
+                                               default = None,
+                                               help = 'The different functions of BOLDigger-cline')
 
     ## keyword arguments e.g. flags used by the positional arguments
     parser.add_argument('-un', '--username', help = 'Username argument')
@@ -25,6 +27,12 @@ if __name__ == "__main__":
     parser.add_argument('-fp', '--fasta_path', help = 'Specify the fasta file path here')
     parser.add_argument('-xp', '--xlsx_path', help = 'Specify the xlsx file path here')
     parser.add_argument('-out', '--output_folder', help = 'Specify the output folder here')
+
+    ## ADD REAL DISTRIBUTION CODE HERE ##
+
+    parser.add_argument('--version', action = 'version', version = '1.0.0', help = 'Display the installed version of BOLDigger-cline')
+
+    ## collect all commandline arguments
     args = parser.parse_args()
 
     ## logic of boldigger-cline
