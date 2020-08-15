@@ -1,4 +1,4 @@
-import requests_html, os
+import requests_html, os, sys
 from bs4 import BeautifulSoup as BSoup
 import pkg_resources
 
@@ -25,6 +25,7 @@ def login(username, password, certificate):
     tags = content.find_all('a')
     if tags[5].text != 'Log out':
         print('No login possible. Please check your userdata.')
+        sys.exit()
     else:
         print('Login successfull')
 
