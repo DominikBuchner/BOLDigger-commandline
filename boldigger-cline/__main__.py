@@ -11,11 +11,11 @@ def main():
 
     ## group parsers that accept the same arguments
     ## identification engines
-    parser_bb_coi = subparsers.add_parser('bb_coi', help = 'COI identification engine')
-    parser_bb_its = subparsers.add_parser('bb_its', help = 'ITS identification engine')
-    parser_bb_rbcl = subparsers.add_parser('bb_rbcl', help = 'rbcl identification engine')
+    parser_bb_coi = subparsers.add_parser('ie_coi', help = 'COI identification engine')
+    parser_bb_its = subparsers.add_parser('ie_its', help = 'ITS identification engine')
+    parser_bb_rbcl = subparsers.add_parser('ie_rbcl', help = 'rbcl identification engine')
 
-    for subparser in [parser_bb_coi, parser_bb_its, parser_bb_rbcl]:
+    for subparser in [parser_ie_coi, parser_ie_its, parser_ie_rbcl]:
         subparser.add_argument('username', help = 'Username for boldsystems login')
         subparser.add_argument('password', help = 'Password for boldsystems login')
         subparser.add_argument('fasta_path', help = 'Path to the fasta file to be blasted')
@@ -40,8 +40,6 @@ def main():
 
     ## parse the arguments
     args = parser.parse_args()
-
-
 
 ## run only if called as a toplevel script
 if __name__ == "__main__":
