@@ -11,9 +11,9 @@ def main():
 
     ## group parsers that accept the same arguments
     ## identification engines
-    parser_bb_coi = subparsers.add_parser('ie_coi', help = 'COI identification engine')
-    parser_bb_its = subparsers.add_parser('ie_its', help = 'ITS identification engine')
-    parser_bb_rbcl = subparsers.add_parser('ie_rbcl', help = 'rbcl identification engine')
+    parser_ie_coi = subparsers.add_parser('ie_coi', help = 'COI identification engine')
+    parser_ie_its = subparsers.add_parser('ie_its', help = 'ITS identification engine')
+    parser_ie_rbcl = subparsers.add_parser('ie_rbcl', help = 'rbcl identification engine')
 
     for subparser in [parser_ie_coi, parser_ie_its, parser_ie_rbcl]:
         subparser.add_argument('username', help = 'Username for boldsystems login')
@@ -40,6 +40,32 @@ def main():
 
     ## parse the arguments
     args = parser.parse_args()
+
+    ## search engine for coi
+    if parser.function == 'ie_coi':
+        pass
+
+    ## search engine for its
+    if parser.function == 'ie_its':
+        pass
+
+    ## search engine for rbcL
+    if parser.function == 'ie_rbcl':
+        pass
+
+    ## additional data
+    if parser.function == 'add_metadata':
+        pass
+
+    ## hit selection
+    if parser.function == 'first_hit':
+        pass
+
+    if parser.function == 'jamp_hit':
+        pass
+
+    if parser.function == 'digger_hit':
+        pass
 
 ## run only if called as a toplevel script
 if __name__ == "__main__":
