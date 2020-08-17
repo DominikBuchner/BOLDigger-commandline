@@ -32,8 +32,6 @@ def main():
 
     for subparser in [parser_add_data, parser_first_hit, parser_jamp_hit, parser_digger_hit]:
         parser_add_data.add_argument('xlsx_path', help = 'Path to the BOLDresults file')
-        parser_add_data.add_argument('output_folder', help = 'Path to the output folder')
-
 
     ## add version control
     parser.add_argument('--version', action='version', version= '1.0.0')
@@ -42,29 +40,29 @@ def main():
     args = parser.parse_args()
 
     ## search engine for coi
-    if parser.function == 'ie_coi':
+    if args.function == 'ie_coi':
         pass
 
     ## search engine for its
-    if parser.function == 'ie_its':
+    if args.function == 'ie_its':
         pass
 
     ## search engine for rbcL
-    if parser.function == 'ie_rbcl':
+    if args.function == 'ie_rbcl':
         pass
 
     ## additional data
-    if parser.function == 'add_metadata':
+    if args.function == 'add_metadata':
         pass
 
     ## hit selection
-    if parser.function == 'first_hit':
+    if args.function == 'first_hit':
         pass
 
-    if parser.function == 'jamp_hit':
+    if args.function == 'jamp_hit':
         pass
 
-    if parser.function == 'digger_hit':
+    if args.function == 'digger_hit':
         pass
 
 ## run only if called as a toplevel script
