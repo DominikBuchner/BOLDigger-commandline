@@ -1,5 +1,5 @@
 import pkg_resources, argparse
-from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl
+from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl, additional_data
 
 ## main function to run and control the flow of bldigger-cline
 def main():
@@ -29,7 +29,7 @@ def main():
     parser_digger_hit = subparsers.add_parser('digger_hit', help = 'determine the top hit with the BOLDigger method')
 
     for subparser in [parser_add_data, parser_first_hit, parser_jamp_hit, parser_digger_hit]:
-        parser_add_data.add_argument('xlsx_path', help = 'Path to the BOLDresults file')
+        subparser.add_argument('xlsx_path', help = 'Path to the BOLDresults file')
 
     ## add version control
     parser.add_argument('--version', action='version', version= '1.0.0')
@@ -49,10 +49,9 @@ def main():
     if args.function == 'ie_rbcl':
         boldblast_rbcl.main(args.username, args.password, args.fasta_path, args.output_folder, args.batch_size)
 
-
     ## additional data
     if args.function == 'add_metadata':
-        pass
+        additional_data.main(args.xlsx_path)
 
     ## hit selection
     if args.function == 'first_hit':

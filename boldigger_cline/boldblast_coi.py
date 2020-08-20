@@ -1,4 +1,4 @@
-import requests_html, openpyxl, ntpath, os, datetime, pkg_resources
+import requests_html, openpyxl, ntpath, os, datetime, pkg_resources, sys
 import numpy as np
 import pandas as pd
 from pathlib import Path
