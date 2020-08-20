@@ -12,4 +12,4 @@ def main(xlsx_path):
     first_hit(xlsx_path)
 
     print('%s: Saving result to new tab.' % datetime.datetime.now().strftime("%H:%M:%S"))
-    print('%s: Done. Close to continue.' % datetime.datetime.now().strftime("%H:%M:%S"))
+    print('%s: Done.' % datetime.datetime.now().strftime("%H:%M:%S"))
