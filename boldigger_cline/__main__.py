@@ -1,5 +1,5 @@
 import pkg_resources, argparse
-from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl, additional_data
+from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl, additional_data, first_hit
 
 ## main function to run and control the flow of bldigger-cline
 def main():
@@ -55,7 +55,7 @@ def main():
 
     ## hit selection
     if args.function == 'first_hit':
-        pass
+        first_hit.main(args.xlsx_path)
 
     if args.function == 'jamp_hit':
         pass
