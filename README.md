@@ -85,8 +85,3 @@ To run the identification engine for COI type:
 
 ### Additional data download and top hit determination
 All other function of BOLDigger commandline just need a filepath to the BOLDResult file as an argument.
-
-
-# TODO
-- Write manual
-- Publish on PyPi
