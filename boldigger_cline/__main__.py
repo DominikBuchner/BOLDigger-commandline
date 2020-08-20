@@ -1,5 +1,5 @@
 import pkg_resources, argparse
-from boldigger_cline import boldblast_coi, boldblast_its
+from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl
 
 ## main function to run and control the flow of bldigger-cline
 def main():
@@ -45,10 +45,10 @@ def main():
     if args.function == 'ie_its':
         boldblast_its.main(args.username, args.password, args.fasta_path, args.output_folder, args.batch_size)
 
-
     ## search engine for rbcL
     if args.function == 'ie_rbcl':
-        pass
+        boldblast_rbcl.main(args.username, args.password, args.fasta_path, args.output_folder, args.batch_size)
+
 
     ## additional data
     if args.function == 'add_metadata':
