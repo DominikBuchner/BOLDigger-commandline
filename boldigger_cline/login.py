@@ -1,6 +1,5 @@
 import requests_html, os, sys
 from bs4 import BeautifulSoup as BSoup
-import pkg_resources
 
 ## function to login to bold
 def login(username, password, certificate):

@@ -1,7 +1,5 @@
 import pkg_resources, argparse
-
-## import data needed for the requests
-certs = pkg_resources.resource_filename(__name__, 'data/certs.pem')
+from boldigger_cline import boldblast_coi, boldblast_its
 
 ## main function to run and control the flow of bldigger-cline
 def main():
@@ -41,11 +39,12 @@ def main():
 
     ## search engine for coi
     if args.function == 'ie_coi':
-        pass
+        boldblast_coi.main(args.username, args.password, args.fasta_path, args.output_folder, args.batch_size)
 
     ## search engine for its
     if args.function == 'ie_its':
-        pass
+        boldblast_its.main(args.username, args.password, args.fasta_path, args.output_folder, args.batch_size)
+
 
     ## search engine for rbcL
     if args.function == 'ie_rbcl':
