@@ -14,8 +14,8 @@ setuptools.setup(
     url="https://github.com/DominikBuchner/BOLDigger-commandline",
     packages=setuptools.find_packages(),
     license = 'MIT',
-    install_requires = ['tqdm >= 4.48.2',
-                        'boldigger >= 1.1.9'],
+    install_requires = ['tqdm >= 4.32.2',
+                        'boldigger >= 1.1.10'],
     include_package_data = True,
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -25,7 +25,7 @@ setuptools.setup(
     python_requires='>=3.6',
     entry_points = {
         "console_scripts" : [
-            "boldigger = boldigger-cline.__main__:main",
+            "boldigger-cline = boldigger_cline.__main__:main",
         ]
     },
 )
