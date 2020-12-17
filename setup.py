@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license = 'MIT',
     install_requires = ['tqdm >= 4.32.2',
-                        'boldigger >= 1.1.10'],
+                        'boldigger >= 1.2.1'],
     include_package_data = True,
     classifiers=[
         "Programming Language :: Python :: 3",
