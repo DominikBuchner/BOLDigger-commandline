@@ -18,7 +18,7 @@ def main():
         subparser.add_argument('password', help = 'Password for boldsystems login')
         subparser.add_argument('fasta_path', help = 'Path to the fasta file to be blasted')
         subparser.add_argument('output_folder', help = 'Path to the output folder')
-        subparser.add_argument('batch_size', type = int, default = 100, nargs = '?', help = 'Batch size to be blasted.')
+        subparser.add_argument('batch_size', type = int, default = 50, nargs = '?', help = 'Batch size to be blasted.')
 
     ## metadata code
     parser_add_data = subparsers.add_parser('add_metadata', help = 'additional data download')
