@@ -1,5 +1,5 @@
 import pkg_resources, argparse
-from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl, additional_data, first_hit, jamp_hit, digger_sort
+from boldigger_cline import boldblast_coi, boldblast_its, boldblast_rbcl, additional_data, first_hit, jamp_hit, digger_sort, api_verification
 
 ## main function to run and control the flow of bldigger-cline
 def main():
@@ -30,6 +30,12 @@ def main():
 
     for subparser in [parser_add_data, parser_first_hit, parser_jamp_hit, parser_digger_hit]:
         subparser.add_argument('xlsx_path', help = 'Path to the BOLDresults file')
+
+    ## add a parser for the api verfication
+    parser_api_verification = subparsers.add_parser('api_verification', help = 'run the api verification')
+    parser_api_verification.add_argument('xlsx_path', help = 'Path to the BOLDResults file')
+    parser_api_verification.add_argument('fasta_path', help = 'Path to the fasta file belonging to the BOLDResults file')
+
 
     ## add version control
     parser.add_argument('--version', action='version', version= '1.0.0')
@@ -62,6 +68,9 @@ def main():
 
     if args.function == 'digger_hit':
         digger_sort.main(args.xlsx_path)
+
+    if args.function == 'api_verification':
+        api_verification.main(args.xlsx_path, args.fasta_path)
 
 ## run only if called as a toplevel script
 if __name__ == "__main__":
