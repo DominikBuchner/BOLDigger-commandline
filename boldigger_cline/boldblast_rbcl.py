@@ -1,16 +1,10 @@
-import requests_html, openpyxl, ntpath, os, datetime, pkg_resources, sys
-import numpy as np
-import pandas as pd
-from bs4 import BeautifulSoup as BSoup
-from requests.exceptions import ConnectionError
-from requests.exceptions import ReadTimeout
-from openpyxl.utils.dataframe import dataframe_to_rows
-from boldigger.boldblast_coi import slices, fasta_to_string, requests, fasta_rewrite
-from boldigger.boldblast_its import save_as_df, save_results
-from boldigger.boldblast_rbcl import post_request
+import pkg_resources, asyncio, datetime
 from boldigger_cline.login import login
-from boldigger_cline.boldblast_coi import requests
+from boldigger.boldblast_coi import slices, fasta_to_string, fasta_rewrite
+from boldigger.boldblast_its import post_request, as_session, save_as_df, save_results, excel_converter
 from tqdm import tqdm
+from requests.exceptions import ReadTimeout
+from requests.exceptions import ConnectionError
 
 def main(username, password, fasta_path, output_path, query_length):
 
@@ -21,53 +15,36 @@ def main(username, password, fasta_path, output_path, query_length):
     session = login(username, password, certs)
     querys, sequences_names = fasta_to_string(fasta_path, query_length)
 
-    ## flags to check request status
-    error = False
-
     ## request as long as there are querys left
     for query in tqdm(querys, desc = 'Requesting BOLD'):
-
-        ## stop if there are 3 connectionerrors or timeouts
-        error_count = 0
-
-        ## request until you get a good answer from the server
-        while error_count < 3:
-            tqdm.write('%s: Requesting BOLD. This will take a while.' % datetime.datetime.now().strftime("%H:%M:%S"))
-
-            ## try to get a answer from bold server, repeat in case of timeout
+        while True:
             try:
+                ## collect IDS result urls from BOLD
+                tqdm.write('%s: Requesting BOLD. This will take a while.' % datetime.datetime.now().strftime("%H:%M:%S"))
                 links = post_request(query, session)
-            except ConnectionError:
-                tqdm.write('%s: ConnectionError, BOLD did not respond properly: Trying to reconnect.' % datetime.datetime.now().strftime("%H:%M:%S"))
-                error_count += 1
-                continue
-            except ReadTimeout:
-                tqdm.write('%s: Readtimeout, BOLD did not respond in time: Trying to reconnect.' % datetime.datetime.now().strftime("%H:%M:%S"))
-                error_count += 1
+
+                ## get all urls at the same time
+                tqdm.write('%s: Downloading results.' % datetime.datetime.now().strftime("%H:%M:%S"))
+                tables = asyncio.run(as_session(links))
+
+                ## parse the returned html
+                tqdm.write('%s: Parsing html.' % datetime.datetime.now().strftime("%H:%M:%S"))
+                result = save_as_df(tables, sequences_names[querys.index(query)])
+
+                ## save results in resultfile
+                tqdm.write('%s: Saving results.' % datetime.datetime.now().strftime("%H:%M:%S"))
+                save_results(result, fasta_path, output_path)
+            except (ValueError, ReadTimeout, ConnectionError):
+                window['out'].print('%s: BOLD did not respond! Retrying.' % datetime.datetime.now().strftime("%H:%M:%S"))
                 continue
             break
-        else:
-            error = True
 
-        if not error:
-            ## download data from the fetched links
-            html_list = requests(links)
+        ## remove found OTUS from fasta and write it into a new one
+        tqdm.write('%s: Removing finished OTUs from fasta.' % datetime.datetime.now().strftime("%H:%M:%S"))
+        fasta_rewrite(fasta_path, query_length)
 
-            ## parse the returned html
-            tqdm.write('%s: Parsing html.' % datetime.datetime.now().strftime("%H:%M:%S"))
-            dataframes = save_as_df(html_list, sequences_names[querys.index(query)])
+    ## convert results to excel when download is finished
+    tqdm.write('%s: Converting the data to excel.' % datetime.datetime.now().strftime("%H:%M:%S"))
+    excel_converter(fasta_path, output_path)
 
-            ## save results in resultfile
-            tqdm.write('%s: Saving results.' % datetime.datetime.now().strftime("%H:%M:%S"))
-            save_results(dataframes, fasta_path, output_path)
-
-            ## remove found OTUS from fasta and write it into a new one
-            tqdm.write('%s: Removing finished OTUs from fasta.' % datetime.datetime.now().strftime("%H:%M:%S"))
-            fasta_rewrite(fasta_path, query_length)
-
-        else:
-            tqdm.write('%s: Too many bad connections. Try a smaller batch size. Close to continue.' % datetime.datetime.now().strftime("%H:%M:%S"))
-            sys.exit()
-
-    if not error:
-        tqdm.write('%s: Done.' % datetime.datetime.now().strftime("%H:%M:%S"))
+    tqdm.write('%s: Done.' % datetime.datetime.now().strftime("%H:%M:%S"))
