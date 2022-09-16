@@ -9,13 +9,13 @@ https://github.com/DominikBuchner/BOLDigger
 ## Installation
 BOLDigger-commandline requires Python version 3.6 or higher and can be easily installed by using pip in any command line:
 
-`pip install boldigger-cline`
+`pip install boldigger_cline`
 
 will install BOLDigger-commandline as well as all needed dependencies.
 
 To update BOLDigger-commandline type:
 
-`pip install --upgrade boldigger-cline`
+`pip install --upgrade boldigger_cline`
 
 ## How to cite
 
