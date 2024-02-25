@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="boldigger-cline",
-    version="2.2.1",
+    version="2.2.2",
     author="Dominik Buchner",
     author_email="dominik.buchner524@googlemail.com",
     description="BOLDigger as a command-line tool",
@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/DominikBuchner/BOLDigger-commandline",
     packages=setuptools.find_packages(),
     license="MIT",
-    install_requires=["tqdm >= 4.32.2", "boldigger >= 2.2.0"],
+    install_requires=["tqdm >= 4.32.2", "boldigger >= 2.2.1"],
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
