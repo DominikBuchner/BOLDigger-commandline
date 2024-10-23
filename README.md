@@ -1,4 +1,7 @@
 # BOLDigger-commandline
+
+Due to the update of Boldsystems from v4 to v5 BOLDigger2 as well as BOLDigger is currently not working. I'm working on an update, please stay tuned. I need access as much as any other users ;).
+
 BOLDigger as a command-line tool for easy implementation into bioinformatic pipelines.
 
 Before using please check that you have updated to the latest version of BOLDigger since BOLDigger-cline heavily relies on the current code of BOLDigger.
